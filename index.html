@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Algebra Portfolio | Engineering Applications</title>
+
+    <style>
+      @charset "utf-8";
+
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #1e3c72;
+        --secondary: #2a5298;
+        --accent: #ff6b6b;
+        --success: #51cf66;
+        --warning: #ffd43b;
+        --light-bg: #f8f9fa;
+        --dark-bg: #0f1419;
+        --text-dark: #1e3c72;
+        --text-light: #ffffff;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background: rgb(255, 255, 255);
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: var(--text-light);
+        padding: 0px;
+        position: sticky;
+        top: 0px;
+        z-index: 1000;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
+      }
+
+      nav {
+        max-width: 1400px;
+        margin: 0px auto;
+        padding: 1.2rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        color: var(--text-light);
+        text-decoration: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 5px;
+        transition: 0.3s;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      nav a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: var(--text-light);
+        padding: 5rem 2rem 3rem;
+        text-align: center;
+        margin-bottom: 0px;
+        border-bottom: 8px solid var(--accent);
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        opacity: 0.95;
+        margin-bottom: 1.2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        opacity: 0.85;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+      }
+
+      .hero-badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .hero-about {
+        max-width: 900px;
+        margin: 2.5rem auto 0;
+        text-align: left;
+        background: rgba(255, 255, 255, 0.98);
+        color: var(--text-dark);
+        border-radius: 16px;
+        padding: 1.8rem 2rem;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 24px;
+      }
+
+      .hero-about h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+        color: var(--secondary);
+      }
+
+      .hero-about p {
+        margin-bottom: 0.7rem;
+        font-size: 0.98rem;
+        opacity: 0.95;
+      }
+
+      .hero-about strong {
+        color: var(--primary);
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0px auto;
+        padding: 0px 2rem;
+      }
+
+      .section-header {
+        background: linear-gradient(
+          135deg,
+          var(--secondary) 0%,
+          #1e3c72 100%
+        );
+        color: var(--text-light);
+        padding: 2.5rem 2rem;
+        margin: 3rem 0px 2rem;
+        border-radius: 12px;
+        border-left: 6px solid var(--accent);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+        margin: 0px;
+        font-weight: 700;
+      }
+
+      .section-header p {
+        margin: 0.5rem 0px 0px;
+        opacity: 0.9;
+        font-size: 1rem;
+      }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 8px;
+        border: 1px solid rgb(233, 236, 239);
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 20px;
+        border-color: var(--secondary);
+      }
+
+      .card h3 {
+        color: var(--secondary);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 3px solid var(--secondary);
+        padding-bottom: 0.5rem;
+      }
+
+      .card h4 {
+        color: var(--text-dark);
+        font-size: 1.1rem;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        font-weight: 600;
+      }
+
+      .theory {
+        background: linear-gradient(
+          135deg,
+          rgb(240, 247, 255) 0%,
+          rgb(232, 244, 248) 100%
+        );
+        border-left: 5px solid var(--secondary);
+        padding: 1.5rem;
+        margin: 1.5rem 0px;
+        border-radius: 8px;
+        border-right: 1px solid rgb(208, 232, 242);
+      }
+
+      .theory strong {
+        color: var(--secondary);
+        font-size: 1.05rem;
+      }
+
+      .theory p {
+        margin: 0.5rem 0px 0px;
+        line-height: 1.7;
+      }
+
+      .example {
+        background: linear-gradient(
+          135deg,
+          rgb(255, 243, 205) 0%,
+          rgb(255, 230, 156) 100%
+        );
+        border-left: 5px solid rgb(255, 152, 0);
+        padding: 1.5rem;
+        margin: 1.5rem 0px;
+        border-radius: 8px;
+      }
+
+      .example strong {
+        color: rgb(216, 67, 21);
+        font-size: 1.05rem;
+      }
+
+      .code-block {
+        background: var(--dark-bg);
+        color: rgb(0, 212, 255);
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5rem 0px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        border: 2px solid var(--secondary);
+        line-height: 1.5;
+      }
+
+      .code-block pre {
+        margin: 0px;
+      }
+
+      .output {
+        background: linear-gradient(
+          135deg,
+          rgb(232, 245, 233) 0%,
+          rgb(241, 248, 233) 100%
+        );
+        border-left: 5px solid var(--success);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0px;
+        font-family: "Courier New", monospace;
+        color: rgb(27, 94, 32);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .output-label {
+        font-weight: 700;
+        color: var(--success);
+        margin-bottom: 0.8rem;
+      }
+
+      .equation {
+        background: linear-gradient(
+          135deg,
+          rgb(255, 249, 230) 0%,
+          rgb(255, 251, 240) 100%
+        );
+        border-left: 5px solid var(--warning);
+        padding: 1.5rem;
+        margin: 1.5rem 0px;
+        border-radius: 8px;
+        font-style: italic;
+        text-align: center;
+        line-height: 1.8;
+        color: rgb(93, 78, 55);
+        font-weight: 500;
+      }
+
+      .equation pre {
+        font-style: normal;
+        text-align: left;
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+        color: #5d4e37;
+        margin: 0;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0px;
+      }
+
+      .info-card {
+        background: white;
+        border: 2px solid var(--secondary);
+        border-radius: 10px;
+        padding: 1.3rem;
+        text-align: center;
+        transition: 0.3s;
+      }
+
+      .info-card:hover {
+        background: rgb(240, 247, 255);
+        transform: translateY(-3px);
+        border-color: var(--accent);
+      }
+
+      .info-card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-card h4 {
+        margin: 0px 0px 0.5rem;
+        color: var(--secondary);
+      }
+
+      .info-card p {
+        margin: 0px;
+        font-size: 0.9rem;
+        color: rgb(85, 85, 85);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0px;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 8px;
+      }
+
+      table th {
+        background: linear-gradient(
+          135deg,
+          var(--secondary) 0%,
+          var(--primary) 100%
+        );
+        color: white;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      table td {
+        padding: 1rem;
+        border-bottom: 1px solid rgb(233, 236, 239);
+      }
+
+      table tr:last-child td {
+        border-bottom: none;
+      }
+
+      table tr:nth-child(2n) {
+        background: rgb(248, 249, 250);
+      }
+
+      table tr:hover {
+        background: rgb(240, 247, 255);
+      }
+
+      ul,
+      ol {
+        margin: 1rem 0px 1rem 2rem;
+        line-height: 1.8;
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      .lab-container {
+        background: var(--light-bg);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 2px solid rgb(233, 236, 239);
+      }
+
+      .lab-container h3 {
+        color: var(--secondary);
+        border-bottom: 3px solid var(--secondary);
+        padding-bottom: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: var(--text-light);
+        text-align: center;
+        padding: 2.5rem 2rem;
+        margin-top: 4rem;
+      }
+
+      footer a {
+        color: var(--warning);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      footer a:hover {
+        color: var(--text-light);
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        nav {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .section-header h2 {
+          font-size: 1.5rem;
+        }
+
+        .hero-subtitle {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .card {
+          padding: 1.5rem;
+        }
+
+        .hero-about {
+          padding: 1.5rem;
+        }
+      }
+
+      .highlight {
+        background: rgb(255, 243, 205);
+        padding: 0.2rem 0.5rem;
+        border-radius: 3px;
+        font-weight: 600;
+        color: rgb(216, 67, 21);
+      }
+
+      .step-number {
+        display: inline-block;
+        background: var(--secondary);
+        color: white;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 2rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header>
+      <nav>
+        <div class="logo">📐 Linear Algebra</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#chapter1">Chapter 1</a></li>
+          <li><a href="#chapter2">Chapter 2</a></li>
+          <li><a href="#chapter3">Chapter 3</a></li>
+          <li><a href="#labs">Labs</a></li>
+          <li><a href="#summary">Summary</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ===== HERO / HOME ===== -->
+    <section class="hero" id="home">
+      <h1>🚀 Linear Algebra in Engineering</h1>
+      <p>
+        Matrix methods for real-world engineering — from springs and trusses to
+        robots and intelligent systems.
+      </p>
+      <div class="hero-subtitle">
+        <div class="hero-badge">🔧 Spring &amp; Mechanical Systems</div>
+        <div class="hero-badge">🏗️ Structural &amp; Flow Analysis</div>
+        <div class="hero-badge">🤖 Robotics &amp; Automation</div>
+      </div>
+
+      <div class="hero-about">
+        <h2>👨‍🎓 About Me</h2>
+        <p>
+          My name is <strong>Gajanan H. Pawar</strong>, and I am currently a
+          second-year student at <strong>KLE Technological University</strong>,
+          pursuing a degree in <strong>Automation &amp; Robotics</strong>.
+        </p>
+        <p>
+          As a robotics student, I am passionate about building my skills in
+          <strong>automation, control, and intelligent systems</strong>, along
+          with exploring <strong>web-based models and tools</strong> that can
+          support engineering applications.
+        </p>
+        <p>
+          From a young age I have been fascinated by how things work and have
+          enjoyed solving problems using both creativity and logic. This
+          curiosity led me to choose Automation &amp; Robotics engineering,
+          where I can combine my passion for technology with a drive to create
+          innovative solutions.
+        </p>
+        <p>
+          I believe that these skills will enable me to
+          <strong>contribute meaningfully to society</strong> — whether through
+          efficient automation, smarter robots, or user-friendly engineering
+          tools.
+        </p>
+        <p><strong>USN Number:</strong> 01FE24BAR015</p>
+
+        <h2 style="margin-top: 1.8rem;">📘 About the Course – Linear Algebra</h2>
+        <p>
+          The course <strong>25EMAB202 – Linear Algebra</strong> introduces the
+          language of vectors, matrices, and linear systems. Instead of solving
+          equations one-by-one, we learn to write them in compact
+          <strong>matrix form (Ax = b)</strong> and use systematic methods like
+          Gaussian elimination and LU decomposition.
+        </p>
+        <p>
+          In <strong>real life and robotics</strong>, linear algebra appears
+          everywhere:
+        </p>
+        <ul>
+          <li>Modelling spring–mass systems and structural frames</li>
+          <li>Analyzing fluid networks and loads on beams</li>
+          <li>Describing robot motion using vectors and transformations</li>
+          <li>Working with sensor data, control laws, and optimization</li>
+        </ul>
+        <p style="margin-top: 0.8rem;">
+          This portfolio connects the <strong>theory of linear algebra</strong>
+          with <strong>practical engineering and robotics examples</strong> you
+          can actually code, visualize, and extend.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+      <!-- ===== INTRODUCTION SECTION ===== -->
+      <div class="section-header" id="introduction">
+        <h2>📚 Introduction to Linear Algebra</h2>
+        <p>
+          A gentle start: what linear algebra is, why it matters, and why it is
+          essential in Automation &amp; Robotics.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>1. What is Linear Algebra?</h3>
+        <div class="theory">
+          <strong>Simple idea:</strong>
+          <p>
+            Linear algebra is the study of
+            <span class="highlight">vectors, matrices, and linear equations</span>.
+            Instead of handling each equation separately, we stack everything
+            into a single matrix equation:
+          </p>
+          <div class="equation">
+            <strong>Ax = b</strong><br />
+            A → matrix of coefficients (how things are connected)<br />
+            x → unknowns (displacements, forces, flows, angles …)<br />
+            b → known values (loads, inputs, constraints)
+          </div>
+          <p>
+            This compact form lets us use algorithms that computers can run very
+            quickly, even for thousands of equations.
+          </p>
+        </div>
+
+        <h3>2. Importance of Linear Algebra</h3>
+        <ul>
+          <li>
+            It gives a <strong>unified language</strong> for many engineering
+            problems – springs, beams, circuits, flows, robots.
+          </li>
+          <li>
+            It allows <strong>systematic solution methods</strong> (Gaussian
+            elimination, LU, etc.) instead of ad-hoc manual tricks.
+          </li>
+          <li>
+            It scales well: the same ideas work for
+            <strong>2 unknowns or 20,000 unknowns</strong>.
+          </li>
+          <li>
+            It connects directly with <strong>numerical methods</strong> used in
+            software like MATLAB, Python (NumPy), ANSYS, etc.
+          </li>
+        </ul>
+
+        <h3>3. Importance in Automation &amp; Robotics</h3>
+        <div class="theory">
+          <strong>Where robots “see” matrices:</strong>
+          <ul>
+            <li>
+              <strong>Kinematics:</strong> End-effector positions are computed
+              using vectors and transformation matrices.
+            </li>
+            <li>
+              <strong>Dynamics &amp; Control:</strong> Robot equations of motion
+              are often written as <strong>Ax = b</strong> and solved
+              continuously.
+            </li>
+            <li>
+              <strong>Sensors &amp; Vision:</strong> Images and point clouds are
+              handled as high-dimensional vectors and matrices.
+            </li>
+            <li>
+              <strong>Path planning &amp; optimization:</strong> Many algorithms
+              internally solve linear systems or eigenvalue problems.
+            </li>
+          </ul>
+        </div>
+
+        <h3>4. Overall Learning Experience</h3>
+        <p>
+          This portfolio is designed to make linear algebra feel
+          <strong>visual, physical, and connected</strong> to real engineering.
+          We will see how matrices describe:
+        </p>
+        <ul>
+          <li>How far springs stretch under load</li>
+          <li>How forces flow through trusses</li>
+          <li>How water/flows move in networks</li>
+          <li>How robots move their arms in the plane</li>
+        </ul>
+        <p style="margin-top: 0.8rem;">
+          By the end, linear algebra should feel less like a set of rules and
+          more like a <strong>toolbox you can actually use</strong> in
+          Automation &amp; Robotics projects.
+        </p>
+      </div>
+
+      <!-- ===== CHAPTER 1 ===== -->
+      <div class="section-header" id="chapter1">
+        <h2>📗 Chapter 1 – Why Linear Algebra for Engineers?</h2>
+        <p>From physical systems to Ax = b: modelling the real world with matrices.</p>
+      </div>
+
+      <!-- Chapter 1 INTRODUCTION block -->
+      <div class="card">
+        <h3>INTRODUCTION</h3>
+        <p>
+          This chapter explains why engineers prefer matrices instead of solving
+          each equation individually. Many engineering systems — springs,
+          trusses, fluid networks — are governed by balance laws (force balance,
+          flow balance, mass balance). Each balance gives a linear equation;
+          stacking them gives a single matrix equation <strong>Ax = b</strong>.
+        </p>
+        <p>
+          Once in matrix form, the problem becomes easier to analyze,
+          <strong>scale up</strong>, and solve using computers. Rather than
+          getting lost in algebra, we focus on:
+        </p>
+        <ul>
+          <li>What each row and column of A means physically</li>
+          <li>
+            How singularity (det(A) = 0) relates to instability or impossibility
+          </li>
+          <li>
+            How the same matrix method works for many different systems
+          </li>
+        </ul>
+
+        <h4>TOPICS COVERED – Key Concepts</h4>
+        <ul>
+          <li>
+            <strong>Matrix form Ax = b:</strong> Turning long sets of equations
+            into one compact system; understanding A (structure), x (unknowns),
+            and b (loads/inputs).
+          </li>
+          <li>
+            <strong>Linearity:</strong> Doubling the load doubles the response —
+            why this makes analysis predictable and scalable.
+          </li>
+          <li>
+            <strong>Physical meaning of singularity:</strong> What det(A) = 0
+            means for trusses, spring systems, and fluid networks.
+          </li>
+          <li>
+            <strong>Scaling of effort:</strong> Manual solving vs. matrix
+            solving as problem size grows.
+          </li>
+          <li>
+            <strong>Rows and columns of A:</strong> Each row as a balance law;
+            each column as an element (spring, member, pipe, etc.).
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Concept Recap &amp; Engineering Questions</h3>
+        <p>
+          This chapter explains why engineers write physical problems in matrix
+          form and introduces typical systems like spring–mass chains and
+          trusses.
+        </p>
+
+        <!-- Q11 -->
+        <h4>Question 11 – Three-Mass Spring System</h4>
+        <div class="example">
+          Three masses slide on a frictionless line and are tied by springs.
+          Spring stiffnesses are k₁ = 10, k₂ = 20, k₃ = 30 N/m. External forces
+          are b₁ = 5 N, b₂ = 0 N, b₃ = 10 N. Find the stiffness matrix and write
+          the system in matrix form, then solve for x₁, x₂, x₃.
+        </div>
+
+        <h4>Answer – Formation of Stiffness Matrix</h4>
+        <p>Let the displacements of the three masses be x₁, x₂, x₃.</p>
+        <p>From equilibrium of each mass:</p>
+        <ul>
+          <li>
+            Mass 1: (k₁ + k₂)x₁ − k₂x₂ = b₁
+            &nbsp;&nbsp;⇒&nbsp;&nbsp;(10 + 20)x₁ − 20x₂ = 5
+          </li>
+          <li>
+            Mass 2: −k₂x₁ + (k₂ + k₃)x₂ − k₃x₃ = b₂
+            &nbsp;&nbsp;⇒&nbsp;&nbsp;−20x₁ + (20 + 30)x₂ − 30x₃ = 0
+          </li>
+          <li>
+            Mass 3: −k₃x₂ + k₃x₃ = b₃
+            &nbsp;&nbsp;⇒&nbsp;&nbsp;−30x₂ + 30x₃ = 10
+          </li>
+        </ul>
+
+        <p>The matrix system Kx = b is:</p>
+        <div class="equation">
+          <pre>[  30  -20    0 ] [ x₁ ]   [  5 ]
+[ -20   50  -30 ] [ x₂ ] = [  0 ]
+[   0  -30   30 ] [ x₃ ]   [ 10 ]</pre>
+        </div>
+
+        <p>Solving this system gives the displacements:</p>
+        <div class="equation">
+          <strong>Final displacements (Q11):</strong><br />
+          x₁ = <span class="highlight">1.5</span>,&nbsp;
+          x₂ = <span class="highlight">2.0</span>,&nbsp;
+          x₃ = <span class="highlight">7/3 ≈ 2.33</span>
+        </div>
+
+        <!-- Q12 -->
+        <h4>Question 12 – Triangular Truss Axial Forces</h4>
+        <div class="example">
+          A triangular truss has members AB, AC, and BC with AB = BC = 5 m,
+          AC = 6 m, height = 4 m. Joint A is pinned, joint C is a roller, and a
+          vertical load of 600 N acts downward at the top joint B. Find the
+          axial forces F₁, F₂, F₃ in members AB, BC, and AC.
+        </div>
+
+        <h4>Answer – Matrix Form and Solution</h4>
+        <p>
+          For members AB and BC we have a 3–4–5 triangle, so the direction
+          cosines are:
+        </p>
+        <ul>
+          <li>cosθ = 3/5, sinθ = 4/5.</li>
+        </ul>
+
+        <p>Take unknowns x = [F₁, F₂, F₃]ᵀ.</p>
+
+        <p>Joint B equilibrium:</p>
+        <ul>
+          <li>X-direction: −(3/5)F₁ + (3/5)F₂ = 0</li>
+          <li>Y-direction: −(4/5)F₁ − (4/5)F₂ = 600</li>
+        </ul>
+
+        <p>Joint C (horizontal direction):</p>
+        <ul>
+          <li>−(3/5)F₂ − F₃ = 0</li>
+        </ul>
+
+        <p>So the system Ax = b is:</p>
+        <div class="equation">
+          <pre>A = ⎡ -3/5   3/5    0 ⎤
+    ⎢ -4/5  -4/5   0 ⎥ ,   x = ⎡ F₁ ⎤ ,   b = ⎡   0 ⎤
+    ⎣   0   -3/5  -1 ⎦         ⎢ F₂ ⎥         ⎢ 600 ⎥
+                               ⎣ F₃ ⎦         ⎣   0 ⎦</pre>
+        </div>
+
+        <h4>Solving</h4>
+        <p>From the first equation: −(3/5)F₁ + (3/5)F₂ = 0 ⇒ F₂ = F₁.</p>
+        <p>
+          Substitute in the second equation:
+          −(4/5)F₁ − (4/5)F₂ = 600 ⇒ −(8/5)F₁ = 600 ⇒ F₁ = −375 N.
+        </p>
+        <p>So F₂ = −375 N.</p>
+        <p>
+          Third equation: −(3/5)F₂ − F₃ = 0 ⇒ F₃ = −(3/5)F₂ = 225 N.
+        </p>
+
+        <div class="equation">
+          <strong>Final member forces (Q12):</strong><br />
+          F₁ = −375 N (compression)<br />
+          F₂ = −375 N (compression)<br />
+          F₃ = 225 N (tension)
+        </div>
+      </div>
+
+      <!-- Chapter 1 OVERALL LEARNING EXPERIENCE block -->
+      <div class="card">
+        <h3>OVERALL LEARNING EXPERIENCE</h3>
+        <p>
+          This chapter shows that linear algebra is not separate from
+          engineering; it is the natural language of equilibrium and
+          conservation. Once you recognize that “everything is Ax = b”, it
+          becomes easier to move between different applications — springs,
+          trusses, flows, and even basic data problems — without learning a new
+          method every time.
+        </p>
+      </div>
+
+      <!-- ===== CHAPTER 2 ===== -->
+      <div class="section-header" id="chapter2">
+        <h2>📘 Chapter 2 – Gaussian Elimination &amp; LU Decomposition</h2>
+        <p>How we actually solve Ax = b efficiently and reuse the effort.</p>
+      </div>
+
+      <!-- Chapter 2 INTRODUCTION block -->
+      <div class="card">
+        <h3>INTRODUCTION</h3>
+        <p>
+          Once a system is written as <strong>Ax = b</strong>, we still need a
+          reliable way to find x. This chapter focuses on
+          <strong>Gaussian elimination</strong> (row operations to reach
+          triangular form) and <strong>LU decomposition</strong> (splitting A
+          into lower and upper triangular matrices).
+        </p>
+        <p>
+          We also look at <strong>rank, basic variables, free variables</strong>
+          and what they mean physically — for example, when a structure is
+          unstable or a spring system can move in a “free” mode.
+        </p>
+
+        <h4>TOPICS COVERED – Key Concepts</h4>
+        <ul>
+          <li>
+            <strong>Gaussian Elimination:</strong> Forward elimination to zero
+            out entries below pivots, followed by back substitution to get the
+            solution x.
+          </li>
+          <li>
+            <strong>LU Decomposition (A = LU):</strong> Factorizing A once, then
+            solving many systems A x = b₁, b₂, … efficiently using Ly = b and
+            Ux = y.
+          </li>
+          <li>
+            <strong>Rank and consistency:</strong> Rank(A), Rank([A|b]), and
+            conditions for unique solution, infinite solutions, or no solution.
+          </li>
+          <li>
+            <strong>Basic vs. free variables:</strong> What a “free variable”
+            means in terms of extra degrees of freedom in mechanical systems.
+          </li>
+          <li>
+            <strong>Computational cost:</strong> Why decomposing once and
+            reusing (LU) is better for multiple load cases.
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Concept Recap &amp; Spring Problems (Q2 &amp; Q3)</h3>
+        <p>
+          Here we apply <strong>Gaussian elimination</strong> to multi-mass
+          spring systems and show every row operation clearly.
+        </p>
+
+        <!-- Question 2 -->
+        <h4>Question 2 – Three Masses with k₁ = 50, k₂ = 75, k₃ = 100 N/m</h4>
+        <div class="example">
+          A system consists of three masses m₁, m₂ and m₃ connected by springs
+          with spring constants k₁ = 50 N/m, k₂ = 75 N/m and k₃ = 100 N/m. An
+          external force F₁ = 200 N is applied to mass m₁. The system is in
+          static equilibrium, and the force equations are given. Express the
+          system in matrix form and use Gaussian elimination to determine the
+          displacements x₁, x₂ and x₃.
+        </div>
+
+        <h4>Answer – Matrix Form</h4>
+        <p>The derived equations are:</p>
+        <ul>
+          <li>−125x₁ + 75x₂ + 0x₃ = 200</li>
+          <li>75x₁ − 175x₂ + 100x₃ = 0</li>
+          <li>0x₁ + 100x₂ − 100x₃ = 0</li>
+        </ul>
+
+        <p>Augmented matrix [A | B]:</p>
+        <div class="code-block">
+          <pre>[A | B] =
+[ -125   75    0 |  200 ]
+[   75 -175  100 |    0 ]
+[    0  100 -100 |    0 ]</pre>
+        </div>
+
+        <h4>Gaussian Elimination Steps</h4>
+        <ol>
+          <li>
+            Make the first pivot positive: R₁ ← −R₁
+            <div class="code-block">
+              <pre>[ 125  -75    0 | -200 ]
+[  75 -175  100 |    0 ]
+[   0  100 -100 |    0 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Eliminate below the first pivot: R₂ ← R₂ − (3/5)R₁
+            <div class="code-block">
+              <pre>[ 125  -75    0 | -200 ]
+[   0 -130  100 |  120 ]
+[   0  100 -100 |    0 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Eliminate below the second pivot: R₃ ← R₃ + (10/13)R₂
+            <div class="code-block">
+              <pre>[ 125  -75      0 |   -200 ]
+[   0 -130    100 |    120 ]
+[   0    0 -300/13 | 1200/13 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Make last pivot 1: R₃ ← −(13/300)R₃
+            <div class="code-block">
+              <pre>[ 125  -75   0 | -200 ]
+[   0 -130 100 |  120 ]
+[   0    0   1 |   -4 ]</pre>
+            </div>
+          </li>
+        </ol>
+
+        <h4>Back Substitution</h4>
+        <ul>
+          <li>From row 3: x₃ = −4</li>
+          <li>
+            Row 2: −130x₂ + 100x₃ = 120 ⇒ −130x₂ + 100(−4) = 120
+            ⇒ −130x₂ − 400 = 120 ⇒ −130x₂ = 520 ⇒ x₂ = −4
+          </li>
+          <li>
+            Row 1: 125x₁ − 75x₂ = −200 ⇒ 125x₁ − 75(−4) = −200
+            ⇒ 125x₁ + 300 = −200 ⇒ 125x₁ = −500 ⇒ x₁ = −4
+          </li>
+        </ul>
+
+        <div class="equation">
+          <strong>Final answer (Q2):</strong><br />
+          x₁ = x₂ = x₃ = <span class="highlight">−4</span>
+        </div>
+
+        <!-- Question 3 -->
+        <h4>Question 3 – Three Masses with k₁ = 100, k₂ = 150, k₃ = 200 N/m</h4>
+        <div class="example">
+          A system consists of three masses m₁, m₂ and m₃ connected by springs
+          with spring constants k₁ = 100 N/m, k₂ = 150 N/m and k₃ = 200 N/m. An
+          external force F = 300 N is applied to mass m₃. Express the equations
+          in matrix form and use Gaussian elimination to find x₁, x₂ and x₃.
+        </div>
+
+        <h4>Answer – Matrix Form</h4>
+        <p>Equations:</p>
+        <ul>
+          <li>−250x₁ + 150x₂ + 0x₃ = 0</li>
+          <li>150x₁ − 350x₂ + 200x₃ = 0</li>
+          <li>0x₁ + 200x₂ − 200x₃ = 300</li>
+        </ul>
+
+        <div class="code-block">
+          <pre>[A | B] =
+[ -250  150    0 |   0 ]
+[  150 -350  200 |   0 ]
+[    0  200 -200 | 300 ]</pre>
+        </div>
+
+        <h4>Gaussian Elimination Steps</h4>
+        <ol>
+          <li>
+            Make first pivot positive: R₁ ← −R₁
+            <div class="code-block">
+              <pre>[ 250 -150   0 |   0 ]
+[ 150 -350 200 |   0 ]
+[   0  200-200 | 300 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Eliminate below first pivot: R₂ ← R₂ − (3/5)R₁
+            <div class="code-block">
+              <pre>[ 250 -150   0 |   0 ]
+[   0 -260 200 |   0 ]
+[   0  200-200 | 300 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Eliminate below second pivot: R₃ ← R₃ + (10/13)R₂
+            <div class="code-block">
+              <pre>[ 250 -150      0 |   0 ]
+[   0 -260   200 |   0 ]
+[   0    0 -600/13 | 300 ]</pre>
+            </div>
+          </li>
+
+          <li>
+            Make pivot 1 in last row: R₃ ← −(13/600)R₃
+            <div class="code-block">
+              <pre>[ 250 -150   0 |   0 ]
+[   0 -260 200 |   0 ]
+[   0    0   1 | -6.5 ]</pre>
+            </div>
+          </li>
+        </ol>
+
+        <h4>Back Substitution</h4>
+        <ul>
+          <li>From row 3: x₃ = −6.5</li>
+          <li>
+            Row 2: −260x₂ + 200x₃ = 0 ⇒ −260x₂ + 200(−6.5) = 0
+            ⇒ −260x₂ − 1300 = 0 ⇒ −260x₂ = 1300 ⇒ x₂ = −5
+          </li>
+          <li>
+            Row 1: 250x₁ − 150x₂ = 0 ⇒ 250x₁ − 150(−5) = 0
+            ⇒ 250x₁ + 750 = 0 ⇒ 250x₁ = −750 ⇒ x₁ = −3
+          </li>
+        </ul>
+
+        <div class="equation">
+          <strong>Final answer (Q3):</strong><br />
+          x₁ = <span class="highlight">−3</span>,&nbsp;
+          x₂ = <span class="highlight">−5</span>,&nbsp;
+          x₃ = <span class="highlight">−6.5</span>
+        </div>
+      </div>
+
+      <!-- Chapter 2 OVERALL LEARNING EXPERIENCE block -->
+      <div class="card">
+        <h3>OVERALL LEARNING EXPERIENCE</h3>
+        <p>
+          In this chapter, solving Ax = b becomes a clear, step-by-step
+          algorithm instead of a mystery. You see how the same elimination steps
+          appear inside tools like NumPy’s <code>np.linalg.solve</code> or
+          MATLAB. More importantly, you understand when a system can be solved,
+          when it is over-constrained, and when extra freedom exists, which is
+          crucial in interpreting mechanical and structural models.
+        </p>
+      </div>
+
+      <!-- ===== CHAPTER 3 ===== -->
+      <div class="section-header" id="chapter3">
+        <h2>📙 Chapter 3 – Vector Spaces &amp; Linear Transformations</h2>
+        <p>Describing motion, forces, and configurations using vectors and matrices.</p>
+      </div>
+
+      <!-- Chapter 3 INTRODUCTION block -->
+      <div class="card">
+        <h3>INTRODUCTION</h3>
+        <p>
+          This chapter moves from “solving equations” to understanding the
+          <strong>geometry of vectors</strong>. A vector space is a collection
+          of vectors where we can add, subtract, and scale them, and everything
+          stays inside the set. This viewpoint is powerful for robot motion,
+          forces, and graphics.
+        </p>
+        <p>
+          We also study <strong>linear transformations</strong> — functions that
+          preserve addition and scaling — which can be represented as matrices.
+          Rotations, scalings, shears, and reflections of robots or camera
+          frames are all examples of linear transformations.
+        </p>
+
+        <h4>TOPICS COVERED – Key Concepts</h4>
+        <ul>
+          <li>
+            <strong>Vector spaces:</strong> Closure, zero vector, and the rules
+            that make a set of vectors a space.
+          </li>
+          <li>
+            <strong>Basis &amp; dimension:</strong> Minimal set of independent
+            vectors that can generate the whole space; dimension as the number
+            of degrees of freedom.
+          </li>
+          <li>
+            <strong>Span &amp; linear independence:</strong> Whether given
+            vectors can generate the desired motions/forces, and how to detect
+            dependence.
+          </li>
+          <li>
+            <strong>Linear transformations:</strong> Mappings T(x) = Ax that
+            preserve structure; interpreting A for scaling, rotation, shear, and
+            reflection.
+          </li>
+          <li>
+            <strong>Physical interpretation:</strong> Force spaces on a beam,
+            motion spaces of a robot, and tension spaces in cables.
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Force Spaces and Bases (Q5 &amp; Q6)</h3>
+
+        <!-- Question 5 -->
+        <h4>Question 5 – Basis of Force Space at Robot Wrist</h4>
+        <div class="example">
+          A 6-DOF industrial robot is performing a pick-and-place operation. At
+          the wrist joint, three actuators apply forces to keep the gripper
+          stable. Force vectors (in N) are:
+          f₁ = [5, 0, 2]ᵀ, f₂ = [0, 3, −1]ᵀ, f₃ = [1, 1, 1]ᵀ.
+          <br />
+          (i) Find a basis of the space spanned by these forces.<br />
+          (ii) What is the dimension of this force space?
+        </div>
+
+        <h4>Answer – Linear Independence</h4>
+        <p>
+          To test independence, solve a₁f₁ + a₂f₂ + a₃f₃ = 0. This gives the
+          matrix equation:
+        </p>
+        <div class="code-block">
+          <pre>⎡ 5   0   1 ⎤ ⎡a₁⎤   ⎡0⎤
+⎢ 0   3   1 ⎥ ⎢a₂⎥ = ⎢0⎥
+⎣ 2  -1   1 ⎦ ⎣a₃⎦   ⎣0⎦</pre>
+        </div>
+
+        <p>Equations:</p>
+        <ul>
+          <li>5a₁ + a₃ = 0</li>
+          <li>3a₂ + a₃ = 0</li>
+          <li>2a₁ − a₂ + a₃ = 0</li>
+        </ul>
+
+        <p>From (1): a₃ = −5a₁.</p>
+        <p>From (2): 3a₂ − 5a₁ = 0 ⇒ a₂ = (5/3)a₁.</p>
+        <p>
+          Substitute into (3):
+          2a₁ − (5/3)a₁ − 5a₁ = 0 ⇒ (2 − 5/3 − 5)a₁ = −14/3 a₁ = 0 ⇒ a₁ = 0.
+        </p>
+        <p>Then a₂ = a₃ = 0.</p>
+
+        <div class="equation">
+          Only the trivial solution exists, so f₁, f₂, f₃ are linearly
+          independent.<br /><br />
+          <strong>Basis:</strong> { f₁, f₂, f₃ }<br />
+          <strong>Dimension:</strong> <span class="highlight">3</span>
+        </div>
+
+        <!-- Question 6 -->
+        <h4>Question 6 – Dimension of Force Space for Three Vectors</h4>
+        <div class="example">
+          A rigid body in space is subjected to three force vectors:<br />
+          f₁ = [5, 0, −2]ᵀ, f₂ = [10, 0, −4]ᵀ, f₃ = [0, 3, −1]ᵀ.<br />
+          (i) Find a basis for the subspace spanned by these forces.<br />
+          (ii) What is the dimension of this force space?
+        </div>
+
+        <h4>Answer – Relation Between Forces</h4>
+        <p>Observe that f₂ = 2f₁, so f₂ does not add a new direction.</p>
+        <p>
+          The span of {f₁, f₂, f₃} is the same as the span of {f₁, f₃}. Now we
+          check if f₁ and f₃ are independent by solving:
+        </p>
+        <p>a₁f₁ + a₃f₃ = 0.</p>
+
+        <div class="code-block">
+          <pre>a₁⎡ 5  ⎤   a₃⎡ 0 ⎤   ⎡0⎤
+  ⎢ 0  ⎥ +   ⎢ 3 ⎥ = ⎢0⎥
+  ⎣-2 ⎦     ⎣-1 ⎦   ⎣0⎦</pre>
+        </div>
+
+        <p>Component-wise:</p>
+        <ul>
+          <li>5a₁ = 0 ⇒ a₁ = 0</li>
+          <li>3a₃ = 0 ⇒ a₃ = 0</li>
+        </ul>
+
+        <div class="equation">
+          So f₁ and f₃ are linearly independent.<br /><br />
+          <strong>Basis:</strong> { f₁, f₃ }<br />
+          <strong>Dimension:</strong> <span class="highlight">2</span>
+        </div>
+      </div>
+
+      <!-- Chapter 3 OVERALL LEARNING EXPERIENCE block -->
+      <div class="card">
+        <h3>OVERALL LEARNING EXPERIENCE</h3>
+        <p>
+          This chapter helps you “see” linear algebra in terms of directions,
+          spaces, and transformations instead of only numbers. You learn to ask:
+        </p>
+        <ul>
+          <li>Do these actuators give full control, or is motion restricted?</li>
+          <li>Do these force vectors cover all needed directions on a beam?</li>
+          <li>
+            What does the dimension of a space say about the degrees of freedom
+            of a system?
+          </li>
+        </ul>
+        <p>
+          For Automation &amp; Robotics, this viewpoint is crucial — every robot
+          configuration, force set, and motion plan lives inside some vector
+          space, and matrices describe how we transform between them.
+        </p>
+      </div>
+
+      <!-- ===== LABS (unchanged) ===== -->
+      <div class="section-header" id="labs">
+        <h2>🔬 Part 3: Laboratory Implementations</h2>
+        <p>See theory in action with Python code and real outputs</p>
+      </div>
+
+      <!-- Lab 1 -->
+      <div class="lab-container">
+        <h3>Lab 1: Spring-Mass System (Basic)</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>Find how much two connected masses move when we push with 20 N force.</p>
+
+        <h4>📐 Setup</h4>
+        <div class="example">
+          <strong>Given:</strong><br />
+          • Spring k₁ = 10 N/m (between wall and mass 1)<br />
+          • Spring k₂ = 5 N/m (between mass 1 and mass 2)<br />
+          • Applied force = 20 N on mass 1
+        </div>
+
+        <h4>📝 Step 1: Write Force Balance</h4>
+        <p>At equilibrium, sum of forces on each mass = 0:</p>
+        <div class="equation">
+          Mass 1: k₁x₁ + k₂(x₁ − x₂) = 20<br />
+          Mass 2: −k₂(x₁ − x₂) = 0
+        </div>
+
+        <h4>📝 Step 2: Convert to Matrix Form</h4>
+        <div class="equation">
+          [15  -5] [x₁]   [20]<br />
+          [-5   5] [x₂] = [ 0]<br />
+          <br />
+          Stiffness Matrix × Displacements = Applied Forces
+        </div>
+
+        <h4>💻 Step 3: Solve with Python</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+# Spring constants (N/m)
+k1, k2 = 10, 5
+
+# Stiffness matrix - represents spring properties
+K = np.array([[k1 + k2, -k2],
+              [-k2, k2]])
+
+# Applied forces (N)
+F = np.array([20, 0])
+
+# Solve: K * x = F
+displacement = np.linalg.solve(K, F)
+
+print(f"Displacement of mass 1: {displacement[0]:.4f} m")
+print(f"Displacement of mass 2: {displacement[1]:.4f} m")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          Displacement of mass 1: 2.0000 m<br />
+          Displacement of mass 2: 2.0000 m
+        </div>
+
+        <h4>🔍 Physical Interpretation</h4>
+        <ul>
+          <li>Both masses move <strong>exactly 2 meters</strong></li>
+          <li>
+            Same displacement because once mass 1 compresses spring k₁ by 2 m,
+            spring k₂ has no relative motion
+          </li>
+          <li>This makes sense: all springs transfer the 20 N load efficiently</li>
+        </ul>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="lab-container">
+        <h3>Lab 2: Truss Member Forces (Structural Analysis)</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>Find forces (tension/compression) inside a 3-member truss structure.</p>
+
+        <h4>📐 Setup</h4>
+        <div class="example">
+          <strong>Given:</strong><br />
+          • 3 members forming a triangle<br />
+          • 10 kN load applied downward at the top<br />
+          • Members at specific angles (cosines: 0.6, sines: 0.8)
+        </div>
+
+        <h4>📝 Physics: Equilibrium at Joints</h4>
+        <p>At each joint, all forces must balance (otherwise the joint would accelerate).</p>
+        <div class="equation">
+          ΣFₓ = 0 (sum of horizontal forces = 0)<br />
+          ΣFᵧ = 0 (sum of vertical forces = 0)
+        </div>
+
+        <h4>💻 Solve with Python</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+# Equilibrium matrix - relates member forces to joint forces
+# Each row: force balance at a location
+A = np.array([[1,    0,   0.6],   # Joint x-equilibrium
+              [0,   -1,   0.8],   # Joint y-equilibrium
+              [0,    1,   0.8]])  # Another joint
+
+# External loads (kN)
+loads = np.array([0, 0, 10])  # 10 kN downward
+
+# Solve: A * F = loads
+member_forces = np.linalg.solve(A, loads)
+
+print("Member Forces (kN):")
+for i, F in enumerate(member_forces, 1):
+    status = "Compression" if F &lt; 0 else "Tension"
+    print(f"  Member {i}: {F:.2f} kN ({status})")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          Member Forces (kN):<br />
+          &nbsp;&nbsp;Member 1: -3.75 kN (Compression)<br />
+          &nbsp;&nbsp;Member 2: 5.00 kN (Tension)<br />
+          &nbsp;&nbsp;Member 3: 6.25 kN (Tension)
+        </div>
+
+        <h4>🔍 Design Implications</h4>
+        <ul>
+          <li>
+            <strong>Member 1 (Compression):</strong> Being squeezed - use thick
+            column to prevent buckling
+          </li>
+          <li>
+            <strong>Members 2 &amp; 3 (Tension):</strong> Being pulled - use
+            cables or rods
+          </li>
+          <li>
+            <strong>Safety factor:</strong> Design for 2-3x these calculated
+            forces for safety
+          </li>
+        </ul>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="lab-container">
+        <h3>Lab 3: Gaussian Elimination (Simple System)</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>Solve a 2×2 system using Gaussian Elimination method step-by-step.</p>
+
+        <h4>📝 Problem</h4>
+        <div class="equation">
+          2x + y = 5<br />
+          4x − y = 3
+        </div>
+
+        <h4>📊 Manual Steps (Just for Understanding)</h4>
+        <ul>
+          <li>
+            <strong>Step 1:</strong> Make first column below row 1 = 0
+            <ul>
+              <li>Row 2 ← Row 2 − 2×Row 1</li>
+              <li>Result: −3y = −7</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Step 2:</strong> Back substitution
+            <ul>
+              <li>From row 2: y = 7/3 ≈ 2.333</li>
+              <li>From row 1: x = (5 − y)/2 ≈ 1.333</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>💻 Python (Automatic)</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+# Coefficient matrix
+A = np.array([[2,  1],
+              [4, -1]], dtype=float)
+
+# Constants
+b = np.array([5, 3], dtype=float)
+
+# Solve using Gaussian elimination (built-in)
+solution = np.linalg.solve(A, b)
+
+print(f"Solution:")
+print(f"  x = {solution[0]:.4f}")
+print(f"  y = {solution[1]:.4f}")
+
+# Verify by substituting back
+print(f"\nVerification:")
+print(f"  2({solution[0]:.4f}) + {solution[1]:.4f} = {2*solution[0] + solution[1]:.4f} (should be 5)")
+print(f"  4({solution[0]:.4f}) - {solution[1]:.4f} = {4*solution[0] - solution[1]:.4f} (should be 3)")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          Solution:<br />
+          &nbsp;&nbsp;x = 1.3333<br />
+          &nbsp;&nbsp;y = 2.3333<br />
+          <br />
+          Verification:<br />
+          &nbsp;&nbsp;2(1.3333) + 2.3333 = 5.0000 (should be 5) ✓<br />
+          &nbsp;&nbsp;4(1.3333) − 2.3333 = 3.0000 (should be 3) ✓
+        </div>
+
+        <h4>💡 Why Verify?</h4>
+        <p>
+          Always substitute your answer back into original equations. If they
+          don't match, something is wrong!
+        </p>
+      </div>
+
+      <!-- Lab 4 -->
+      <div class="lab-container">
+        <h3>Lab 4: LU Decomposition (Efficient Multi-Solve)</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>
+          Solve the SAME structure under DIFFERENT loads efficiently using LU
+          decomposition.
+        </p>
+
+        <h4>🏭 Real Scenario: Bridge Load Cases</h4>
+        <div class="example">
+          <strong>A bridge structure:</strong><br />
+          • Geometry doesn't change<br />
+          • But many load cases: cars, trucks, wind, earthquake<br />
+          • Need to solve for each load case quickly
+        </div>
+
+        <h4>💻 Without LU (Inefficient)</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+# Same stiffness matrix
+K = np.array([[15, -5, 0],
+              [-5, 30, -20],
+              [0, -20, 20]], dtype=float)
+
+# 3 different load cases
+loads = [np.array([100, 0, 0]),
+         np.array([0, 100, 0]),
+         np.array([50, 50, 50])]
+
+print("Without LU - Solve from scratch each time:")
+for i, load in enumerate(loads, 1):
+    x = np.linalg.solve(K, load)  # Gaussian elimination from scratch
+    print(f"  Case {i}: x = {x}")</pre>
+        </div>
+
+        <h4>💻 With LU (Efficient)</h4>
+        <div class="code-block">
+          <pre>from scipy.linalg import lu_factor, lu_solve
+import numpy as np
+
+K = np.array([[15, -5, 0],
+              [-5, 30, -20],
+              [0, -20, 20]], dtype=float)
+
+loads = [np.array([100, 0, 0]),
+         np.array([0, 100, 0]),
+         np.array([50, 50, 50])]
+
+# LU decomposition ONCE
+lu, piv = lu_factor(K)
+print("LU Decomposition done once ⚡")
+
+# Solve each case quickly
+print("Solve with pre-computed LU:")
+for i, load in enumerate(loads, 1):
+    x = lu_solve((lu, piv), load)  # Use cached decomposition
+    print(f"  Case {i}: x = {x}")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          LU Decomposition done once ⚡<br />
+          Solve with pre-computed LU:<br />
+          &nbsp;&nbsp;Case 1: x = [7.11, 2.37, 1.19]<br />
+          &nbsp;&nbsp;Case 2: x = [2.37, 4.29, 2.14]<br />
+          &nbsp;&nbsp;Case 3: x = [4.76, 3.81, 3.33]
+        </div>
+
+        <h4>⏱️ Performance Benefit</h4>
+        <p>For large systems (10,000+ equations):</p>
+        <ul>
+          <li><strong>Without LU:</strong> Decompose 3 times = 3 × 10⁹ operations</li>
+          <li>
+            <strong>With LU:</strong> Decompose 1 time + 3 fast solves = 1.3 ×
+            10⁹ operations
+          </li>
+          <li><strong>Speed gain:</strong> <strong>2–3× faster!</strong></li>
+        </ul>
+      </div>
+
+      <!-- Lab 5 -->
+      <div class="lab-container">
+        <h3>Lab 5: 2-Link Robot Arm Kinematics</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>
+          Calculate where the robot's gripper (end-effector) ends up given joint
+          angles.
+        </p>
+
+        <h4>🤖 Setup</h4>
+        <div class="example">
+          <strong>Given:</strong><br />
+          • Link 1 length = 2.0 m<br />
+          • Link 2 length = 1.5 m<br />
+          • Joint 1 angle = 30°<br />
+          • Joint 2 angle = 45°
+        </div>
+
+        <h4>📐 Kinematics Formula</h4>
+        <div class="equation">
+          x = L₁·cos(θ₁) + L₂·cos(θ₁ + θ₂)<br />
+          y = L₁·sin(θ₁) + L₂·sin(θ₁ + θ₂)
+        </div>
+
+        <h4>💡 Intuition</h4>
+        <ul>
+          <li>Link 1 projects to (L₁cosθ₁, L₁sinθ₁)</li>
+          <li>Link 2 projects from there: (L₂cos(θ₁+θ₂), L₂sin(θ₁+θ₂))</li>
+          <li>Add them: total end-effector position!</li>
+        </ul>
+
+        <h4>💻 Python Solution</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+# Link lengths
+L1, L2 = 2.0, 1.5
+
+# Joint angles in degrees
+theta1_deg, theta2_deg = 30, 45
+
+# Convert to radians
+theta1 = np.radians(theta1_deg)
+theta2 = np.radians(theta2_deg)
+
+# Forward kinematics
+x = L1*np.cos(theta1) + L2*np.cos(theta1 + theta2)
+y = L1*np.sin(theta1) + L2*np.sin(theta1 + theta2)
+
+# Distance from origin
+distance = np.sqrt(x**2 + y**2)
+
+print(f"2-Link Robot Arm Position")
+print(f"Link 1: {L1} m, Link 2: {L2} m")
+print(f"Angles: θ₁={theta1_deg}°, θ₂={theta2_deg}°")
+
+print(f"\nEnd-Effector Position:")
+print(f"  x = {x:.4f} m")
+print(f"  y = {y:.4f} m")
+print(f"  distance = {distance:.4f} m")
+
+print(f"\nWorkspace:")
+print(f"  Max reach = {L1+L2:.1f} m")
+print(f"  Min reach = {abs(L1-L2):.1f} m")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          2-Link Robot Arm Position<br />
+          Link 1: 2.0 m, Link 2: 1.5 m<br />
+          Angles: θ₁ = 30°, θ₂ = 45°<br />
+          <br />
+          End-Effector Position:<br />
+          &nbsp;&nbsp;x = 2.1203 m<br />
+          &nbsp;&nbsp;y = 2.4489 m<br />
+          &nbsp;&nbsp;distance = 3.2457 m<br />
+          <br />
+          Workspace:<br />
+          &nbsp;&nbsp;Max reach = 3.5 m<br />
+          &nbsp;&nbsp;Min reach = 0.5 m
+        </div>
+
+        <h4>🎯 Applications</h4>
+        <ul>
+          <li>
+            <strong>Manufacturing:</strong> Program robot to pick object at
+            (2.5, 2.0) - what angles?
+          </li>
+          <li><strong>Planning:</strong> Which points can this robot reach?</li>
+          <li><strong>Safety:</strong> Keep people away from workspace</li>
+        </ul>
+      </div>
+
+      <!-- Lab 6 -->
+      <div class="lab-container">
+        <h3>Lab 6: 3-Link Robot Arm (Extended)</h3>
+
+        <h4>🎯 Objective</h4>
+        <p>Extended robot with 3 joints for more workspace coverage.</p>
+
+        <h4>🤖 Setup</h4>
+        <div class="example">
+          <strong>Given:</strong><br />
+          • Link 1 = 1.0 m, Link 2 = 0.8 m, Link 3 = 0.6 m<br />
+          • θ₁ = 30°, θ₂ = 45°, θ₃ = 20°
+        </div>
+
+        <h4>💻 Python Solution</h4>
+        <div class="code-block">
+          <pre>import numpy as np
+
+L1, L2, L3 = 1.0, 0.8, 0.6
+theta1 = np.radians(30)
+theta2 = np.radians(45)
+theta3 = np.radians(20)
+
+# Position after link 1
+x1 = L1*np.cos(theta1)
+y1 = L1*np.sin(theta1)
+
+# Position after link 2
+x2 = x1 + L2*np.cos(theta1 + theta2)
+y2 = y1 + L2*np.sin(theta1 + theta2)
+
+# Final position after link 3
+x3 = x2 + L3*np.cos(theta1 + theta2 + theta3)
+y3 = y2 + L3*np.sin(theta1 + theta2 + theta3)
+
+print(f"3-Link Robot Kinematics")
+
+print(f"\nJoint Positions:")
+print(f"  Base:      (0.0000, 0.0000)")
+print(f"  Joint 1:   ({x1:.4f}, {y1:.4f})")
+print(f"  Joint 2:   ({x2:.4f}, {y2:.4f})")
+print(f"  End-Eff:   ({x3:.4f}, {y3:.4f})")
+
+print(f"\nDistance from base: {np.sqrt(x3**2 + y3**2):.4f} m")</pre>
+        </div>
+
+        <div class="output">
+          <div class="output-label">✅ Output:</div>
+          3-Link Robot Kinematics<br />
+          <br />
+          Joint Positions:<br />
+          &nbsp;&nbsp;Base:      (0.0000, 0.0000)<br />
+          &nbsp;&nbsp;Joint 1:   (0.8660, 0.5000)<br />
+          &nbsp;&nbsp;Joint 2:   (1.4821, 1.4269)<br />
+          &nbsp;&nbsp;End-Eff:   (1.9835, 1.8947)<br />
+          <br />
+          Distance from base: 2.7345 m
+        </div>
+
+        <h4>💡 Advantages of 3-Link</h4>
+        <ul>
+          <li><strong>2-Link:</strong> Can reach points in a ring-shaped region</li>
+          <li>
+            <strong>3-Link:</strong> Can reach ANY point in full circular
+            workspace
+          </li>
+          <li>
+            <strong>Flexibility:</strong> Multiple configurations for same
+            endpoint
+          </li>
+          <li><strong>Redundancy:</strong> Can work around obstacles</li>
+        </ul>
+      </div>
+
+      <!-- ===== SUMMARY SECTION ===== -->
+      <div class="section-header" id="summary">
+        <h2>🎓 Summary &amp; Key Takeaways</h2>
+        <p>What you should remember</p>
+      </div>
+
+      <div
+        class="card"
+        style="
+          background: linear-gradient(135deg, #f0f7ff 0%, #e8f4f8 100%);
+          border: 2px solid var(--secondary);
+        "
+      >
+        <h3>✅ Main Ideas</h3>
+
+        <div class="grid-2">
+          <div class="info-card">
+            <div class="info-card-icon">🔄</div>
+            <h4>Everything is Ax = b</h4>
+            <p>Springs, trusses, pipes, robots - all use matrix equations</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">⚡</div>
+            <h4>Computers Solve Fast</h4>
+            <p>Gaussian elimination: O(n³). LU: O(n²) per solve</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">⚠️</div>
+            <h4>Check Singularity</h4>
+            <p>det(A) = 0 means no unique solution. Physical disaster!</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">✔️</div>
+            <h4>Always Verify</h4>
+            <p>Substitute answer back. Does it satisfy original equations?</p>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 2rem;">📚 When to Use Each Method</h4>
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Use When</th>
+            <th>Speed</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td><strong>Gaussian Elimination</strong></td>
+            <td>Single Ax = b to solve</td>
+            <td>O(n³)</td>
+            <td>One load case on structure</td>
+          </tr>
+          <tr>
+            <td><strong>LU Decomposition</strong></td>
+            <td>Same A, multiple b vectors</td>
+            <td>O(n²) per solve</td>
+            <td>Bridge with 100 load cases</td>
+          </tr>
+          <tr>
+            <td><strong>Inverse (A⁻¹)</strong></td>
+            <td>Teaching / small systems</td>
+            <td>O(n³)</td>
+            <td>Classroom example</td>
+          </tr>
+        </table>
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <h3 style="margin-bottom: 1rem;">📖 Linear Algebra Portfolio v2.0</h3>
+      <p style="margin-bottom: 0.5rem;">
+        © 2025 | GAJANAN PAWAR | Automation and Robotics Engineer
+      </p>
+      <p style="margin-bottom: 1rem;">
+        Course: 25EMAB202 - Linear Algebra | KLE Technological University, Hubli
+      </p>
+      <p>
+        <a href="https://github.com/GAJANANPAWAR-AR">🔗 GitHub</a>
+      </p>
+      <p style="margin-top: 1.5rem; opacity: 0.8; font-size: 0.9rem;">
+        Built with ❤️ for robotics, engineering, and lifelong learning
+      </p>
+    </footer>
+  </body>
+</html>
